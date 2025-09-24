@@ -1,7 +1,9 @@
 import {Chat} from "./components/Chat/Chat"
 import styles from  "./App.module.css"
+import { useState } from "react"
 
 function App() {
+  const [messages, setMessages]= useState()
 
   return (
     <div  className={styles.App}>
@@ -10,11 +12,58 @@ function App() {
         <h2 className={styles.Title}>AI Chatbot</h2>
       </header>
       <div className={styles.ChatContainer}>
-        <Chat />
+        <Chat messages={messages} />
 
       </div>
       </div>
   )
 }
 
+const MESSAGES=[
+  {
+    role:"user",
+    content:"is simply dummy text of the printing and typesetting industry. Lorem Ipsum "
+
+  },
+
+  {
+    role:"assistant",
+    content:"is simply dummy text of the printing and typesetting industry. Lorem Ipsum "
+
+  },
+
+   {
+    role:"user",
+    content:"is simply dummy text of the printing and typesetting industry. Lorem Ipsum "
+
+  },
+
+  {
+    role:"assistant",
+    content:"is simply dummy text of the printing and typesetting industry. Lorem Ipsum "
+
+  },
+   {
+    role:"user",
+    content:"is simply dummy text of the printing and typesetting industry. Lorem Ipsum "
+
+  },
+
+  {
+    role:"assistant",
+    content:"is simply dummy text of the printing and typesetting industry. Lorem Ipsum "
+
+  },
+   {
+    role:"user",
+    content:"is simply dummy text of the printing and typesetting industry. Lorem Ipsum "
+
+  },
+
+  {
+    role:"assistant",
+    content:"is simply dummy text of the printing and typesetting industry. Lorem Ipsum "
+
+  }
+]
 export default App

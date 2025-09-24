@@ -1,11 +1,9 @@
 
-
-function Chat(){
+export function Chat(){
     return(
     <div>
-     <h1>Messages</h1>
+     <h2>Messages</h2>
     </div>
     )
 }
 
-export default Chat
