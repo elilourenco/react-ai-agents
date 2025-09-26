@@ -4,7 +4,14 @@ import { useState } from "react"
 import { Controls } from "./components/Controls/Controls"
 
 function App() {
-  const [messages, setMessages]= useState(MESSAGES)
+  const [messages, setMessages]= useState([])
+
+  
+  function handleContentSend(content){
+    
+   setMessages((prevMessages) =>[...prevMessages,{ content,role: "user"}])
+
+  }
 
   return (
     <div  className={styles.App}>
@@ -16,56 +23,12 @@ function App() {
         <Chat messages={messages} />
 
       </div>
-      <Controls />
+      <Controls
+        onSend={handleContentSend}
+       />
       </div>
   )
 }
 
-const MESSAGES=[
-  {
-    role:"user",
-    content:"is simply dummy text of the printing and typesetting industry. Lorem Ipsum "
 
-  },
-
-  {
-    role:"assistant",
-    content:"is simply dummy text of the printing and typesetting industry. Lorem Ipsum "
-
-  },
-
-   {
-    role:"user",
-    content:"is simply dummy text of the printing and typesetting industry. Lorem Ipsum "
-
-  },
-
-  {
-    role:"assistant",
-    content:"is simply dummy text of the printing and typesetting industry. Lorem Ipsum "
-
-  },
-   {
-    role:"user",
-    content:"is simply dummy text of the printing and typesetting industry. Lorem Ipsum "
-
-  },
-
-  {
-    role:"assistant",
-    content:"is simply dummy text of the printing and typesetting industry. Lorem Ipsum "
-
-  },
-   {
-    role:"user",
-    content:"is simply dummy text of the printing and typesetting industry. Lorem Ipsum "
-
-  },
-
-  {
-    role:"assistant",
-    content:"is simply dummy text of the printing and typesetting industry. Lorem Ipsum "
-
-  }
-]
 export default App
