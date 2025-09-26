@@ -1,12 +1,14 @@
 import {Chat} from "./components/Chat/Chat"
-import { GoogleGenAI } from "@google/genai"
+import { GoogleGenerativeAI } from "@google/generative-ai"
 import styles from  "./App.module.css"
 import { useState } from "react"
 import { Controls } from "./components/Controls/Controls"
 
+ 
+
 // Initialize Google Generative AI client
-const googleai= new GoogleGenAI(import.meta.env.VITE_GOOGLE_AI_API_KEY)
-const gemini= googleai.getGenerativeModel({model: "gemini-1.5-flash"})
+const googleai = new GoogleGenerativeAI(import.meta.env.VITE_GOOGLE_AI_API_KEY);
+const gemini=googleai.getGenerativeModel({model: "gemini-2.5-pro"});
 const chat= gemini.startChat({history: []})
 
 
@@ -20,13 +22,13 @@ function App() {
     setMessages((prevMessages) =>[...prevMessages,message])
   }
 
-  
-   async function handleContentSend(content){
+  // Function to handle sending user content and receiving AI response
+  async function handleContentSend(content){
     
-   addMessage({role: "user", content})
+    addMessage({role: "user", content})
 
 
-   try {
+    try {
 
     const result= await chat.sendMessage(content);
     addMessage({role: "assistant", content: result.response.text()})
