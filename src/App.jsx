@@ -55,6 +55,7 @@ function App() {
 
       </div>
       <Controls
+      isDisabled={isLoading}
         onSend={handleContentSend}
        />
       </div>
