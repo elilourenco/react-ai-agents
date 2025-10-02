@@ -1,9 +1,11 @@
-import OpenAI from "openai";
+import Anthropic from '@anthropic-ai/sdk';
 
 
-const openai = new OpenAI({
-  apiKey: import.meta.env.VITE_OPEN_AI_API_KEY,
-  dangerouslyAllowBrowser: true,
+
+const anthropic = new Anthropic({
+  apiKey:import.meta.env.VITE_ANTHROPIC_AI_API_KEY, 
+  dangerouslyAllowBrowser:true,
+  
 });
 
 
@@ -12,7 +14,7 @@ export class Assistant {
     #model;
     
 
-    constructor(model="gpt-4o-mini", client=openai){ 
+    constructor(model="claude-opus-4-20250514", client=openai){ 
         this.#model=model
         this.client= client;
 
@@ -21,15 +23,17 @@ export class Assistant {
     async chat(content,history) {
 
         try {
-            const result = await this.#client.chat.completions.create({
+            const result = await this.#client.messages.create({
                 model: this.#model,
                 messages: [...history , {content, role:"user"}],
+                max_tokens: 1024
+                ,
                 
             });
 
-            return  result.choices[0].message.content;
+            return  result.content[0].message.content;
         } catch (error) {
-            throw error
+            
             
         }
         
@@ -48,11 +52,7 @@ async *chatStream(content,history) {
            yield chunk.choices[0]?.delta?.content || "";
        }
     } catch (error) {
-        throw error
+        throw this.#parseError(error);
     }
 }
 }
-
-
-
-export default openai;

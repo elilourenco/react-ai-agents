@@ -23,7 +23,12 @@ export function Chat({messages}){
         []),[messages])
 
     useEffect(() =>{
-        messagesEndRef.current.scrollIntoView({behavior: "smooth"})
+        const lastMessage= messages[messages.length -1];
+        if(lastMessage?.role ==="user") {
+            messagesEndRef.current.scrollIntoView({behavior: "smooth"})
+            
+        }
+        
     },[messages])
 
        

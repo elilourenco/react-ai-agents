@@ -1,5 +1,5 @@
 import {Chat} from "./components/Chat/Chat"
-import { Assistant } from "./assistants/openai"
+import { Assistant } from "./assistants/xai"
 import styles from  "./App.module.css"
 import { useState } from "react"
 import { Controls } from "./components/Controls/Controls"
@@ -13,7 +13,17 @@ function App() {
   const assistant=new Assistant();
   const [messages, setMessages]= useState([])
 
-  const [isLoading, setIsLoading]= useState(false)  
+  const [isLoading, setIsLoading]= useState(false) 
+  const [isStreaming, setIsstreaming]= useState(false)
+
+
+// Function to update the content of the last message
+  function UpdateLastMessageContent(content){
+    setMessages((prevMessages) => prevMessages.map((message, index) =>
+       index === prevMessages.length - 1
+      ? { ...message, content: 
+        `${message.content}${content}` }: message ))
+  }
 
 
 // Function to add a new message to the chat
@@ -28,19 +38,33 @@ function App() {
     addMessage({role: "user", content})
 
     try {
-      const result= await assistant.chat(content,messages);
+      const result= await assistant.chat(content, messages.filter(({role}) => role !== "system"))
+      let  isfirstChunk=false;
 
-    
-    addMessage({role: "assistant", content: result})
+      //for await (const chunk of result) {
+
+        if(!isfirstChunk){
+          isfirstChunk=true;
+          addMessage({role: "assistant", content:""})
+          setIsLoading(false)
+          //setIsstreaming(true)
+        }
+        UpdateLastMessageContent(result)
+        
+      //}
+
+      //setIsstreaming(false)
+
+
     
    } catch (error) {
     console.error(error);
-    addMessage({role: "system", content: "Sorry i couldn`t process your request. Please try again!"} )
-    
-   }finally{
+    addMessage({role: "system", 
+      content:error?.message ?? "Sorry i couldn`t process your request. Please try again!"} )
     setIsLoading(false)
+    setIsstreaming(false)
+    
    }
-
   }
 
   return (
@@ -55,7 +79,7 @@ function App() {
 
       </div>
       <Controls
-      isDisabled={isLoading}
+      isDisabled={isLoading || isStreaming}
         onSend={handleContentSend}
        />
       </div>

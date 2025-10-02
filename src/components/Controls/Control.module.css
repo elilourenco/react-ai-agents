@@ -1,6 +1,6 @@
 .Controls{
-    display: flex;
-    align-items: center;
+    display:flex;
+    align-items:center;
     gap: 8px;
     width: 100% ;      
 }
@@ -8,10 +8,10 @@
 .TextAreaContainer{
     flex-grow: 1;
     line-height: 0;
-    gap: 8px;
+    gap:8px;
     border-radius:16px;
     padding: 8px 16px;
-    background: light-dark( #ffffff, #212121);
+    background: light-dark(#ffffff, #212121);
    
 }
 
@@ -22,7 +22,7 @@
     outline: none;
     resize: none;
     background: #ffffff;
-    color:#0d0d0d;
+    color: light-dark ( #ffffff #0d0d0d);
     background: light-dark( #ffffff, #212121);
    
 }
@@ -31,10 +31,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 36px;
-    height: 36px;
-    border: none;
-    border-radius: 50%;
+    width:36px;
+    height:36px;
+    border:none;
+    border-radius:50%;
     outline: none;
     background: light-dark(#0d0d0d, #ececec);;
 }
