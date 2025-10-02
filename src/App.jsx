@@ -1,16 +1,18 @@
 import {Chat} from "./components/Chat/Chat"
-import { Assistant } from "./assistants/xai"
+import { Assistant as AssistantClass } from "./assistants/xai"
 import styles from  "./App.module.css"
 import { useState } from "react"
 import { Controls } from "./components/Controls/Controls"
 import { Loader } from "./components/Loader/Loader"
+import { Assistant } from "./components/Assistant/Assistant"
+import {Theme} from "./components/Theme/Theme"
 
  
 
 // Main Application Component
 function App() {
 
-  const assistant=new Assistant();
+  let assistant;
   const [messages, setMessages]= useState([])
 
   const [isLoading, setIsLoading]= useState(false) 
@@ -67,6 +69,10 @@ function App() {
    }
   }
 
+  function handleAssistantChange(newAssistant){
+    assistant =newAssistant;
+}
+
   return (
     <div  className={styles.App}>
       {isLoading && <Loader/> }
@@ -82,6 +88,8 @@ function App() {
       isDisabled={isLoading || isStreaming}
         onSend={handleContentSend}
        />
+       <Assistant onAsistantChange={handleAssistantChange}  />
+       <Theme/>
       </div>
   )
 }

@@ -52,7 +52,7 @@ async *chatStream(content,history) {
            yield chunk.choices[0]?.delta?.content || "";
        }
     } catch (error) {
-        throw this.#parseError(error);
+        throw (error);
     }
 }
 }
