@@ -6,6 +6,7 @@ import { Controls } from "./components/Controls/Controls"
 import { Loader } from "./components/Loader/Loader"
 import { Assistant } from "./components/Assistant/Assistant"
 import {Theme} from "./components/Theme/Theme"
+import { Sidebar } from "./components/Sidebar/Sidebar"
 
  
 
@@ -80,16 +81,35 @@ function App() {
         <img  className={styles.Logo} src="/robot.svg" />
         <h2 className={styles.Title}>AI Chatbot</h2>
       </header>
-      <div className={styles.ChatContainer}>
-        <Chat messages={messages} />
+      <div className={styles.Content}>
+      <Sidebar />
+
+      
+      <main className={styles.Main} >
+
+        <div className={styles.ChatContainer}>
+        
+          <Chat messages={messages} />
+
+        </div>
+        <Controls
+          isDisabled={isLoading || isStreaming}
+          onSend={handleContentSend}
+        />
+        <div  className={styles.Configuration}>
+
+        <Assistant onAsistantChange={handleAssistantChange}/>
+        <Theme />
 
       </div>
-      <Controls
-      isDisabled={isLoading || isStreaming}
-        onSend={handleContentSend}
-       />
-       <Assistant onAsistantChange={handleAssistantChange}  />
-       <Theme/>
+       
+
+      </main>
+      </div>
+      <footer className={styles.Footer} >
+        <span>Made with ❤️ by Elizandra</span>
+        
+       </footer>
       </div>
   )
 }
