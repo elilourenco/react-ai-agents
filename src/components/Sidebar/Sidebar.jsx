@@ -2,31 +2,7 @@ import { useState } from "react";
 import styles from "./Sidebar.module.css"
 
 
-
-    const CHATS =[
-        {
-            id:1, 
-            title:"How to use AI Agents ?"
-       },
-
-     {  id:2, 
-        title:"What is the best AI model ?"
-     },
-
-     {id:3,
-        title:"How to build a React App ?"
-     },
-
-     {id:4,
-        title:"What is the future of AI ?"  
-     },
-     {id:5,
-        title:"How to use AI Agents ?"
-     }
-
-    ]
-
-    export function Sidebar({chats = CHATS, activeChatId=1}) {
+    export function Sidebar({chats, activeChatId, onActiveChatIdChange}) {
         const [isOpen, setIsOpen] = useState(false);
 
         function handleSidebarToggle(){
@@ -38,6 +14,16 @@ import styles from "./Sidebar.module.css"
                 setIsOpen(false);
             }
             
+        }
+
+        function handleChatClick(chatId){
+            onActiveChatIdChange(chatId);
+
+            if(isOpen){
+                setIsOpen(false)
+            }
+
+
         }
 
     return(
@@ -53,7 +39,10 @@ import styles from "./Sidebar.module.css"
         <div className={styles.Sidebar} data-open={isOpen} >
             <ul className={styles.Chats} >
                 {chats.map((chat) =>(
-                    <li key={chat.id} className={styles.Chat}  data-active={chat.id === activeChatId} >
+                    <li key={chat.id} 
+                    className={styles.Chat}  
+                    onClick={()=> handleChatClick(chat.id)}
+                    data-active={chat.id === activeChatId} >
                         <button className={styles.ChatButton} > 
                             <div className={styles.ChatTitle}>{chat.title}</div>
                         </button>
