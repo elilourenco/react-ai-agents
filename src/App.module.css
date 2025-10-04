@@ -30,18 +30,14 @@
 .Logo{
     width:64px;
     height:64px;
+    
+    
 }
 .Title{
     margin: 0;
     color: light-dark(#ffffff  black);
 }
-.ChatContainer{
-    flex-grow:1;
-    width: 100%;
-    background: light-dark(#ffffff , #212121);
-    border-radius: 16px;
-    overflow-y: auto;
-}
+
 
 .Configuration{
     display: flex;
@@ -50,4 +46,13 @@
     font-size: 14px;
     gap: 8px;
     opacity: 0.8;
+}
+
+
+
+@media screen and (min-width: 768px) {
+    .Header{
+        padding-left:0;
+        
+    }
 }
